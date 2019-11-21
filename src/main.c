@@ -10,7 +10,8 @@ int	main(void)
 	affiche_voiture("files/test.txt",20,20, 1);
 	affiche_voiture("files/test.txt", 20, 21, 0);
 	fflush(stdout);
+printf("\033[%d;%dH", 700, 0);
 	sleep(10);
-
+printf("\033[%d;%dH", 700, 0);
 	return 0;
 }

@@ -1,0 +1,1 @@
+void efface_voiture(int x, int y);

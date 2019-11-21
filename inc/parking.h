@@ -14,7 +14,7 @@ typedef struct s_list_car
 /*
 **			affiche_map.c
 */
-char	**parse_map(char *path_to_file)
+char	**parse_map(char *path_to_file);
 void	affiche_map(char *fichier);
 /*
 **			affiche_map.c

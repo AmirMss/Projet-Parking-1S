@@ -1,17 +1,18 @@
 #include "../inc/parking.h"
+#include <fcntl.h>
 
 static int get_size(int fd)
 {
 	int		size;
-	char	buff[2];
+	char	buff;
 
 	size = 0;
 	while (read(fd, &buff, 1) > 0)
 	{
-		if (!(buff[0] < '0' && c <= '9'))
-			break ;
-		size = size * 10 + buff[0] - '0';
-	}
+        if (buff > '9' || buff < '0')
+            break ;
+		size = size * 10 + buff - '0';
+    }
 	return (size);
 }
 

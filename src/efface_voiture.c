@@ -14,7 +14,7 @@ void	efface_voiture(int x, int y)
 		for(j = 0; j < 8; j++)
 		{
 			printf(" ");
-			/*y++; tu as oublier ?*/
+			y++; /*tu as oublier ?*/
 		}
 
 	}

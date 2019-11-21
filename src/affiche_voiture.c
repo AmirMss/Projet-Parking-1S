@@ -1,6 +1,6 @@
 #include "../inc/parking.h"
 
-void affiche_voiture(char *fichier,int x, int y)
+void affiche_voiture(char *fichier,int x, int y, int d)
 {
 	char	c;
 	int	i;
@@ -13,13 +13,20 @@ void affiche_voiture(char *fichier,int x, int y)
 	fichierp = fopen(fichier , "r");
 	if (fichierp != NULL)
 	{           
-		for(i=0; i<2 ; i++){
+		for(i=0; i<2 ; i++)
+		{
 			printf("\033[%d;%dH", x, y);
 			x++;
 			for(j=0; j<8; j++){
 				c=fgetc(fichierp);
 				if(c != EOF){
-					if (c == 'A')
+					if (d == 1)
+					{
+						printf("\033[10;36;2m");
+						printf(" "); // On l'affiche
+						printf("\033[0m");
+					}
+					else if (c == 'A')
 					{
 						printf("\033[10;36;2m");
 						printf("┌"); // On l'affiche
@@ -61,9 +68,8 @@ void affiche_voiture(char *fichier,int x, int y)
 						printf("┘");
 						printf("\033[0m");
 					}
-					else{printf("%c",c);
-
-					}
+					else
+						printf("%c",c);
 				}
 			}
 

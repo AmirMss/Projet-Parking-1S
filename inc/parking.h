@@ -6,7 +6,7 @@
 /*   By: nicktor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 09:23:07 by nicktor           #+#    #+#             */
-/*   Updated: 2019/11/21 09:30:37 by nicktor          ###   ########.fr       */
+/*   Updated: 2019/11/21 11:04:39 by nicktor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	affiche_map(char *fichier);
 /*
 **			affiche_map.c
 */
-void	affiche_voiture(char *fichier, int x, int y);
+void	affiche_voiture(char *fichier, int x, int y, int d);
 /*
 **			efface_map.c
 */

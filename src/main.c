@@ -1,16 +1,25 @@
-#include "../inc/parking.h"
+ #include "../inc/parking.h"
 
-int	main(void)
+
+
+static int	usage(char *name)
 {
-	affiche_map("files/map.txt");
-	sleep(1);
-	affiche_voiture("files/test.txt",20,20, 0);
-	fflush(stdout);
-	sleep(5);
-	affiche_voiture("files/test.txt",20,20, 1);
-	affiche_voiture("files/test.txt", 20, 21, 0);
-	fflush(stdout);
-	sleep(10);
+	printf("Usage : ./%s <map_file> <car_files ...>\nLes fichiers doivent être valide !\n", name);
+	return (0);
+ }
 
-	return 0;
+int		main(int argc, char **argv)
+{
+	char		**map;
+	t_list_car	**all_type;
+	int			i;
+
+	if (argc < 3)
+		return (usage(argv[0]));
+	if ((map = prase_map(argv[1])) == NULL)
+		return (usage(arv[0]));
+	all_type = parse_car(argv);
+
+
+	return (0);
 }

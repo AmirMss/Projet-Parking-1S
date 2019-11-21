@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parking.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nicktor <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/21 09:23:07 by nicktor           #+#    #+#             */
-/*   Updated: 2019/11/21 11:04:39 by nicktor          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PARKING_H
 # define PARKING_H
 
@@ -17,9 +5,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct s_list_car
+{
+	char		*horizontal;
+	char		*vertical;
+}				t_list_car;
+
 /*
 **			affiche_map.c
 */
+char	**parse_map(char *path_to_file)
 void	affiche_map(char *fichier);
 /*
 **			affiche_map.c

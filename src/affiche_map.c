@@ -21,8 +21,9 @@ char	**parse_map(char *path_to_file)
 	int		fd;
 	int		size_i;
 	int		i;
-	int		size_j;
-	char	buff[254];
+    int     ret;
+    int		size_j;
+	char	buff[1024];
 	char	**map;
 
 	fd = open(path_to_file, O_RDONLY);
@@ -33,9 +34,6 @@ char	**parse_map(char *path_to_file)
 	}
 	size_i = get_size(fd);
 	size_j = get_size(fd);
-	j = 0;
-	while (buff[j] != '\n' || buff[j] != '\0')
-		j++;
 	if ((map = (char **)malloc(sizeof(char *) * size_i + 1)) == NULL)
 	{
 		printf("Error malloc \n");
@@ -46,115 +44,117 @@ char	**parse_map(char *path_to_file)
 	{
 		if ((map[i] = (char *)malloc(sizeof(char) * size_j + 1)) == NULL)
 		{
-			printf("Error malloc \n");
+			printf("Error malloc\n");
 			return (NULL);
 		}
-		read(fd, &(map[i]), size_j);
-		printf("%s", map[i]);
+        ret = read(fd, &buff, size_j);
+        buff[ret] = '\0';
+        strcpy(map[i], buff);
 		i++;
 	}
+    map[i] = NULL;
 	return (map);
 }
 
-void affiche_map(char *fichier){
+void affiche_map(char **map)
+{
+    int i;
+    int j;
 
-	char c;
-	FILE* fichierp;
-
-	fichierp = NULL;
-	fichierp = fopen(fichier , "r");
-
-	if (fichierp != NULL)
-	{
-		while ((c=fgetc(fichierp)) != EOF)
+    i = 0;
+    while (map[i] != NULL)
+    {
+        j = 0;
+        while (map[i][j] != '\0')
 		{
-			if (c == 'U')
+			if (map[i][j] == 'U')
 			{
 				printf("\033[10;36;2m");
-				printf("╔"); // On l'affiche
+				printf("╔"); // On l'affimap[i][j]he
 				printf("\033[0m");
 			}
-			else if (c == 'B')
+			else if (map[i][j] == 'B')
 			{
 				printf("\033[10;36;2m");
 				printf("═");
 				printf("\033[0m");
 			}
-			else if (c == 'A')
+			else if (map[i][j] == 'A')
 			{
 				printf("\033[10;36;2m");
 				printf("║");
 				printf("\033[0m");
 			}
-			else if (c == 'x')
+			else if (map[i][j] == 'x')
 			{
 				printf("\033[10;36;2m");
 				printf("▀");
 				printf("\033[0m");
 			}
-			else if (c == 'K')
+			else if (map[i][j] == 'K')
 			{
 				printf("\033[10;36;2m");
 				printf("╚");
 				printf("\033[0m");
 			}
-			else if (c == 'M')
+			else if (map[i][j] == 'M')
 			{
 				printf("\033[10;36;2m");
 				printf("╗");
 				printf("\033[0m");
 			}
-			else if (c == 'L')
+			else if (map[i][j] == 'L')
 			{
 				printf("\033[10;36;2m");
 				printf("╝");
 				printf("\033[0m");
 			}
-			else if (c == '6')
+			else if (map[i][j] == '6')
 			{
 				printf("\033[10;36;2m");
 				printf("╬");
 				printf("\033[0m");
 			}
-			else if (c == 'R')
+			else if (map[i][j] == 'R')
 			{
 				printf("\033[10;36;2m");
 				printf("╩");
 				printf("\033[0m");
 			}
-			else if (c == '9')
+			else if (map[i][j] == '9')
 			{
 				printf("\033[10;36;2m");
 				printf("╦");
 				printf("\033[0m");
 			}
-			else if (c == '0')
+			else if (map[i][j] == '0')
 			{
 				printf("\033[10;36;2m");
 				printf(" ");
 				printf("\033[0m");
 			}
-			else if (c == 's')
+			else if (map[i][j] == 's')
 			{
 				printf("\033[10;36;2m");
 				printf("▌");
 				printf("\033[0m");
 			}
-			else if (c == '3')
+			else if (map[i][j] == '3')
 			{
 				printf("\033[10;36;2m");
 				printf("╣");
 				printf("\033[0m");
 			}
-			else if (c == 'G')
+			else if (map[i][j] == 'G')
 			{
 				printf("\033[10;36;2m");
 				printf("╠");
 				printf("\033[0m");
 			}
-			else{printf("%c",c);
-			}
+			else
+                printf("%c",map[i][j]);
+            j++;
 		}
-		fclose(fichierp);
+        i++;
 	}
 }

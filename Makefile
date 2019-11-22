@@ -10,7 +10,8 @@ OBJ_DIR = ./obj
 SRC =  main.c	\
 	affiche_map.c	\
 	affiche_voiture.c	\
-	efface_voiture.c
+	efface_voiture.c	\
+	strcpy.c
 
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

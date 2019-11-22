@@ -17,7 +17,6 @@ int		main(int argc, char **argv)
 		return (usage(argv[0]));
 	
 	/*all_type = parse_car(argv);*/
-
-
+    affiche_map(map);
 	return (0);
 }

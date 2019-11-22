@@ -9,14 +9,15 @@ static int	usage(char *name)
 int		main(int argc, char **argv)
 {
 	char		**map;
-	//t_list_car	**all_type;
+	t_list_car	**all_type;
 
 	if (argc < 3)
 		return (usage(argv[0]));
 	if ((map = parse_map(argv[1])) == NULL)
 		return (usage(argv[0]));
-	
-	/*all_type = parse_car(argv);*/
+	if ((t_list_car = parse_car(argv, argc)) == NULL)
+		return (usage(argv[0]));
+
     affiche_map(map);
 	return (0);
 }

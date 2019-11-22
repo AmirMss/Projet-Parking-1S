@@ -1,80 +1,159 @@
 #include "../inc/parking.h"
 
-void affiche_voiture(char *fichier,int x, int y, int d)
+static t_list_car *get_car(char * patpath_to_files)
 {
-	char	c;
-	int	i;
-	int	j;
-	FILE*	fichierp;
+	t_list_car	*car;
+	int			fd;
+	char		buff;
+	int			i;
+	int			j;
 
+
+	fd = open(path_to_file, O_RDONLY);
+	if (fd < 0 || read(fd, &buff, 0) < 0)
+	{
+		printf("Le fichier %s n'est pas valide !\n", path_to_file);
+		return (NULL);
+	}
 	i = 0;
-	j = 0;
-	fichierp = NULL;
-	fichierp = fopen(fichier , "r");
-	if (fichierp != NULL)
-	{           
-		for(i=0; i<2 ; i++)
+	j = 0
+	while (read(fd, &buff, 1) < 0)
+	{
+		if (buff = '\n' && j == 0)
 		{
-			printf("\033[%d;%dH", x, y);
-			x++;
-			for(j=0; j<8; j++){
-				c=fgetc(fichierp);
-				if(c != EOF){
-					if (d == 1)
-					{
-						printf("\033[10;36;2m");
-						printf(" "); // On l'affiche
-						printf("\033[0m");
-					}
-					else if (c == 'A')
-					{
-						printf("\033[10;36;2m");
-						printf("┌"); // On l'affiche
-						printf("\033[0m");
-					}
-					else if (c == 'B')
-					{
-						printf("\033[10;36;2m");
-						printf("─");
-						printf("\033[0m");
-					}
-					else if (c == 'C')
-					{
-						printf("\033[10;36;2m");
-						printf("┬");
-						printf("\033[0m");
-					}
-					else if (c == 'P')
-					{
-						printf("\033[10;36;2m");
-						printf("┐");
-						printf("\033[0m");
-					}
-					else if (c == 'M')
-					{
-						printf("\033[10;36;2m");
-						printf("└");
-						printf("\033[0m");
-					}
-					else if (c == 'G')
-					{
-						printf("\033[10;36;2m");
-						printf("┴");
-						printf("\033[0m");
-					}
-					else if (c == 'N')
-					{
-						printf("\033[10;36;2m");
-						printf("┘");
-						printf("\033[0m");
-					}
-					else
-						printf("%c",c);
-				}
-			}
-
+			car->horizontal[i] = NULL;
+			break ;
 		}
+		if (buff == '\n')
+		{
+			car->horizontal[i][j] = '\0';
+			j = 0;
+			i++;
+		}
+		car->horizontal[i][j] = buff;
+		j++;
+	}
+	while (read(fd, &buff, 1) < 0)
+	{
+		if (buff = '\0')
+		{
+			car->vertical[i] = NULL;
+			break;
+		}
+		if (buff == '\n')
+		{
+			car->vertical[i][j] = '\0';
+			j = 0;
+			i++;
+		}
+		car->vertical[i][j] = buff;
+		j++;
+	}
+	return (car);
+}
 
-		fclose(fichierp);
+t_list_car **parse_car(char **path_to_files, int argc)
+{
+	t_list_car	**all_car;
+	int			i;
+	int			j;
+
+	i = 2;
+	all_car = (t_list_car **)malloc(sizeof(t_list_car*) * (argc - i) + 1);
+	j = 0;
+	while (i < argc)
+	{
+		if ((all_car[j] = get_car(path_to_files[i]) != NULL));
+			j++;
+		i++;
+	}
+	all_car[j] = NULL;
+	return (all_car);
+}
+
+void affiche_voiture(char **car, int x, int y, int d)
+{
+	int i;
+	int j;
+	j = 0;
+	while (car[i] != NULL)
+	{
+		j = 0;
+		printf("\033[%d;%dH", x, y);
+		x++;
+		while (car[i][j] != '\0')
+		{
+			if (d == 1)
+			{
+				printf("\033[10;36;2m");
+				printf(" "); // On l'affiche
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'A')
+			{
+				printf("\033[10;36;2m");
+				printf("┌"); // On l'affiche
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'B')
+			{
+				printf("\033[10;36;2m");
+				printf("─");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'C')
+			{
+				printf("\033[10;36;2m");
+				printf("┬");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'P')
+			{
+				printf("\033[10;36;2m");
+				printf("┐");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'M')
+			{
+				printf("\033[10;36;2m");
+				printf("└");
+				printf("\033[0m");
+			}
+			else if (c == 'G')
+			{
+				printf("\033[10;36;2m");
+				printf("┴");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'N')
+			{
+				printf("\033[10;36;2m");
+				printf("┘");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'E')
+			{
+				printf("\033[10;36;2m");
+				printf("│");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'D')
+			{
+				printf("\033[10;36;2m");
+				printf("├");
+				printf("\033[0m");
+			}
+			else if (car[i][j] == 'H')
+			{
+				printf("\033[10;36;2m");
+				printf("┤");
+				printf("\033[0m");
+			}
+			
+				else
+					printf("%c", c);
+			j++;
+		}
+		i++;
 	}
 }

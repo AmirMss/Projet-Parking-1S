@@ -20,8 +20,10 @@ char	**parse_map(char *path_to_file)
 {
 	int		fd;
 	int		size_i;
+	int		i;
 	int		size_j;
 	char	buff[254];
+	char	**map;
 
 	fd = open(path_to_file, O_RDONLY);
 	if (fd < 0 || read(fd, &buff, 0) < 0)
@@ -31,8 +33,27 @@ char	**parse_map(char *path_to_file)
 	}
 	size_i = get_size(fd);
 	size_j = get_size(fd);
-	printf("size_i = %d, size_j = %d\n", size_i, size_j);
-	return (NULL);
+	j = 0;
+	while (buff[j] != '\n' || buff[j] != '\0')
+		j++;
+	if ((map = (char **)malloc(sizeof(char *) * size_i + 1)) == NULL)
+	{
+		printf("Error malloc \n");
+		return (NULL);
+	}
+	i = 0;
+	while (i < size_i + 1)
+	{
+		if ((map[i] = (char *)malloc(sizeof(char) * size_j + 1)) == NULL)
+		{
+			printf("Error malloc \n");
+			return (NULL);
+		}
+		read(fd, &(map[i]), size_j);
+		printf("%s", map[i]);
+		i++;
+	}
+	return (map);
 }
 
 void affiche_map(char *fichier){

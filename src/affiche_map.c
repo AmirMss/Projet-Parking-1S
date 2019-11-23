@@ -49,7 +49,7 @@ char	**parse_map(char *path_to_file)
 		}
         ret = read(fd, &buff, size_j);
         buff[ret] = '\0';
-        strcpy(map[i], buff);
+        ft_strcpy(map[i], buff);
 		i++;
 	}
     map[i] = NULL;

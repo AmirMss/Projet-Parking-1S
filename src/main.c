@@ -18,8 +18,8 @@ int		main(int argc, char **argv)
 	if ((all_car = parse_car(argv, argc)) == NULL)
 		return (usage(argv[0]));
 
-    //affiche_map(map);
-    
+    affiche_map(map);
+    /*
     int i = 0;
     printf("\n");
     while (all_car[0]->horizontal[i] != NULL)
@@ -27,5 +27,6 @@ int		main(int argc, char **argv)
         printf("%s", all_car[0]->horizontal[i]);
         i++;
     }
+    */
 	return (0);
 }

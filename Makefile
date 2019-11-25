@@ -11,7 +11,7 @@ SRC =  main.c	\
 	affiche_map.c	\
 	affiche_voiture.c	\
 	efface_voiture.c	\
-	strcpy.c
+	open_files.c
 
 LIB_FT = ./libft
 FT_LNK = -L $(LIB_FT) -l ft
@@ -28,7 +28,7 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	@echo "\033[36m$(CC) $(CFLAGS) -c $< -o $@\033[0m"
 
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(FT_LNK) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(FT_LNK)
 
 clean : 
 	@rm -Rf $(OBJ_DIR)

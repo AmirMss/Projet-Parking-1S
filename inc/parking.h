@@ -27,4 +27,6 @@ void		affiche_voiture(t_car *car, int x, int y, int d);
 **			efface_map.c
 */
 void	efface_voiture(int x, int y);
+
+int     open_files(char *file);
 #endif

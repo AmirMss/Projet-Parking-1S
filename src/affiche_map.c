@@ -1,59 +1,32 @@
 #include "../inc/parking.h"
 #include <fcntl.h>
 
-static int get_size(int fd)
-{
-	int		size;
-	char	buff;
-
-	size = 0;
-	while (read(fd, &buff, 1) > 0)
-	{
-        if (buff > '9' || buff < '0')
-            break ;
-		size = size * 10 + buff - '0';
-    }
-	return (size);
-}
-
 char	**parse_map(char *path_to_file)
 {
 	int		fd;
 	int		size_i;
+	int		size_j;
 	int		i;
-    int     ret;
-    int		size_j;
-	char	buff[1024];
+	char	*buff;
 	char	**map;
-
-	fd = open(path_to_file, O_RDONLY);
-	if (fd < 0 || read(fd, &buff, 0) < 0)
+    if ((fd = open_files(path_to_file)) == -1)
+        return (NULL);
+    get_next_line(fd, &buff);       //  info size map;
+	size_i = ft_atoi(buff);         //  01.map :
+    free(buff);                     //  12
+    get_next_line(fd, &buff);       //  10
+	size_j = ft_atoi(buff);         //  *************
+    free(buff);                     //  ...
+    map = (char **)ft_memalloc(sizeof(char *) * size_i + 1);
+    i = 0;
+	while (get_next_line(fd, &buff) == 1)
 	{
-		printf("Le fichier %s n'est pas valide !\n", path_to_file);
-		return (NULL);
-	}
-	size_i = get_size(fd);
-	size_j = get_size(fd);
-	if ((map = (char **)malloc(sizeof(char *) * size_i + 1)) == NULL)
-	{
-		printf("Error malloc \n");
-		return (NULL);
-	}
-	i = 0;
-	while (i < size_i + 1)
-	{
-		if ((map[i] = (char *)malloc(sizeof(char) * size_j + 1)) == NULL)
-		{
-			printf("Error malloc\n");
-			return (NULL);
-		}
-        ret = read(fd, &buff, size_j);
-        buff[ret] = '\0';
+        map[i] = (char *)ft_memalloc(sizeof(char ) * size_j + 1);
         ft_strcpy(map[i], buff);
+        free(buff);
 		i++;
 	}
-    map[i] = NULL;
-	return (map);
+    return (map);
 }
 
 void affiche_map(char **map)
@@ -151,10 +124,15 @@ void affiche_map(char **map)
 				printf("╠");
 				printf("\033[0m");
 			}
-			else
-                printf("%c",map[i][j]);
+            else
+            {
+				printf("\033[10;36;2m");
+				printf("%c", map[i][j]);
+				printf("\033[0m");
+            }
             j++;
 		}
+        ft_putchar('\n');
         i++;
 	}
 }

@@ -1,6 +1,10 @@
+2
+7
 ABCBCBP
 MBGBGBN
 
+7
+2
 AP
 EE
 DH

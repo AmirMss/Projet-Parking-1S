@@ -1,7 +1,7 @@
 #include "../inc/parking.h"
 #include <fcntl.h>
 
-int     is_paterne(char c)
+static int     is_paterne(char c)
 {
     if (ft_isalnum(c) || c == ' ' || c == '\\' || c == '/' || c == '_' || c == '(' || c == ')' || c == '<' || c == '>')
         return (0);
@@ -16,6 +16,7 @@ char	**parse_map(char *path_to_file)
 	int		i, j;
 	char	*buff;
 	char	**map;
+
     if ((fd = open_files(path_to_file)) == -1)
         return (NULL);
     get_next_line(fd, &buff);       //  info size map;
@@ -36,7 +37,6 @@ char	**parse_map(char *path_to_file)
             j++;
         }
         map[i][j] = '\n';
-        printf("%s", map[i]);
         free(buff);
 		i++;
 	}

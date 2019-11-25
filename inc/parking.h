@@ -9,8 +9,8 @@
 
 typedef struct s_car
 {
-	char		horizontal[10][10];
-	char		vertical[10][10];
+	char		**horizontal;
+	char		**vertical;
 }				t_car;
 
 /*

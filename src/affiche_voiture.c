@@ -1,45 +1,59 @@
 #include "../inc/parking.h"
 #include <fcntl.h>
 
+static int  get_value(int fd)
+{
+    char *buff;
+    int nb;
+
+    get_next_line(fd, &buff);
+    nb = ft_atoi(buff);
+    free(buff);
+    return (nb);
+}
+
 static t_car *get_car(char *path_to_files)
 {
-    t_car	*car;
+    t_car       *car;
     int			fd;
-    char		buff;
+    int         size_i, size_j;
+    char		*buff;
     int			i;
-    int			j;
+    int         horizontal;
 
-
-    fd = open(path_to_files, O_RDONLY);
-    if (fd < 0 || read(fd, &buff, 0) < 0)
-    {
-        printf("Le fichier %s n'est pas valide !\n", path_to_files);
-        return (NULL);
-    }
-    i = 0;
-    j = 0;
     car = (t_car *)malloc(sizeof(t_car));
-
-    while (read(fd, &buff, 1) > 0)
+    if ((fd = open_files(path_to_files)) == -1 )
+        return (NULL);
+    size_i = get_value(fd);
+    size_j = get_value(fd);
+    car->horizontal = (char **)ft_memalloc(sizeof(char *) * size_i + 1);
+    i = 0;
+    horizontal = 1;
+    while (get_next_line(fd, &buff ) == 1)
     {
-        car->horizontal[i][j] = buff;
-        j++;
-    }
-    while (read(fd, &buff, 1) > 0)
-    {
-        if (buff == '\0')
+        if (buff[0] == '\0')
         {
-            car->vertical[i][0] = '\0';
-            break;
+            size_i = get_value(fd);
+            size_j = get_value(fd);
+            car->vertical = (char **)ft_memalloc(sizeof(char *) * size_i + 1);
+            horizontal = 0;
         }
-        if (buff == '\n')
+        if (horizontal == 1)
+            car->horizontal[i] = (char *)ft_memalloc(sizeof(char) * size_j + 1);
+        else 
+            car->vertical[i] = (char *)ft_memalloc(sizeof(char) * size_j + 1);
+        if (horizontal == 1)
         {
-            car->vertical[i][j] = '\0';
-            j = 0;
-            i++;
+            ft_strcpy(car->horizontal[i], buff);
+            car->horizontal[i][size_j] = '\0';
         }
-        car->vertical[i][j] = buff;
-        j++;
+        else if (horizontal == 0)
+        {
+            ft_strcpy(car->vertical[i], buff);
+            car->vertical[i][size_j] = '\0';
+        }
+        i++;
+        free(buff);
     }
     return (car);
 }

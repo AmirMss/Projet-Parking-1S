@@ -34,6 +34,7 @@ void affiche_map(char **map)
 {
     int i;
     int j;
+    char c;
 
     i = 0;
     while (map[i] != NULL)
@@ -41,97 +42,94 @@ void affiche_map(char **map)
         j = 0;
         while (map[i][j] != '\0')
 		{
-			if (map[i][j] == 'U')
-			{
-				printf("\033[10;36;2m");
-				printf("╔"); // On l'affimap[i][j]he
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'B')
-			{
-				printf("\033[10;36;2m");
-				printf("═");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'A')
-			{
-				printf("\033[10;36;2m");
-				printf("║");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'x')
-			{
-				printf("\033[10;36;2m");
-				printf("▀");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'K')
-			{
-				printf("\033[10;36;2m");
-				printf("╚");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'M')
-			{
-				printf("\033[10;36;2m");
-				printf("╗");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'L')
-			{
-				printf("\033[10;36;2m");
-				printf("╝");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == '6')
-			{
-				printf("\033[10;36;2m");
-				printf("╬");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'R')
-			{
-				printf("\033[10;36;2m");
-				printf("╩");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == '9')
-			{
-				printf("\033[10;36;2m");
-				printf("╦");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == '0')
-			{
-				printf("\033[10;36;2m");
-				printf(" ");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 's')
-			{
-				printf("\033[10;36;2m");
-				printf("▌");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == '3')
-			{
-				printf("\033[10;36;2m");
-				printf("╣");
-				printf("\033[0m");
-			}
-			else if (map[i][j] == 'G')
-			{
-				printf("\033[10;36;2m");
-				printf("╠");
-				printf("\033[0m");
-			}
-            else
-            {
-				printf("\033[10;36;2m");
-				printf("%c", map[i][j]);
-				printf("\033[0m");
-            }
+            c = map[i][j];
             j++;
+            if (c == 'U')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╔"); // On l'affiche
+                 printf("\033[0m");
+             }
+             else if (c == 'B')
+             {
+                 printf("\033[10;36;2m");
+                 printf("═");
+                 printf("\033[0m");
+             }
+             else if (c == 'A')
+             {
+                 printf("\033[10;36;2m");
+                 printf("║");
+                 printf("\033[0m");
+             }
+             else if (c == 'x')
+             {
+                 printf("\033[10;36;2m");
+                 printf("▀");
+                 printf("\033[0m");
+             }
+             else if (c == 'K')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╚");
+                 printf("\033[0m");
+             }
+             else if (c == 'M')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╗");
+                 printf("\033[0m");
+             }
+             else if (c == 'L')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╝");
+                 printf("\033[0m");
+             }
+             else if (c == '6')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╬");
+                 printf("\033[0m");
+             }
+             else if (c == 'R')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╩");
+                 printf("\033[0m");
+             }
+             else if (c == '9')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╦");
+                 printf("\033[0m");
+             }
+             else if (c == '0')
+             {
+                 printf("\033[10;36;2m");
+                 printf(" ");
+                 printf("\033[0m");
+             }
+             else if (c == 's')
+             {
+                 printf("\033[10;36;2m");
+                 printf("▌");
+                 printf("\033[0m");
+             }
+             else if (c == '3')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╣");
+                 printf("\033[0m");
+             }
+             else if (c == 'G')
+             {
+                 printf("\033[10;36;2m");
+                 printf("╠");
+                 printf("\033[0m");
+             }
+            else 
+                printf("%c", c);
 		}
         ft_putchar('\n');
         i++;

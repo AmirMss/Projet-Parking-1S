@@ -71,6 +71,7 @@ void affiche_voiture(t_car *car, int x, int y, int d)
 
     j = 0;
     c = '\0';
+    i = 0;
     while (car->horizontal[i] != NULL)
     {
         j = 0;

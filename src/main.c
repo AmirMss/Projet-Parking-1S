@@ -2,7 +2,7 @@
 
 static int	usage(char *name)
 {
-	printf("Usage : %s <map_file> <car_files ...>\nLes fichiers doivent être valide !\n", name);
+	printf("Usage : %s <map_file> <car_files ...>\nLes fichiers doivent etre valides !\n", name);
 	return (0);
 }
 

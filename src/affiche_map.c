@@ -21,11 +21,12 @@ char	**parse_map(char *path_to_file)
     i = 0;
 	while (get_next_line(fd, &buff) == 1)
 	{
-        map[i] = (char *)ft_memalloc(sizeof(char ) * size_j + 1);
+        map[i] = ft_memalloc(sizeof(char ) * size_j + 1);;
         ft_strcpy(map[i], buff);
         free(buff);
 		i++;
 	}
+    close(fd);
     return (map);
 }
 

@@ -100,6 +100,12 @@ void affiche_map(char **map)
                  printf("╝");
                  printf("\033[0m");
              }
+            else if (c == '1')
+             {
+                 printf("\033[10;36;2m");
+                 printf(" ");
+                 printf("\033[0m");
+             }
              else if (c == '6')
              {
                  printf("\033[10;36;2m");

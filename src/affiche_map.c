@@ -1,12 +1,19 @@
 #include "../inc/parking.h"
 #include <fcntl.h>
 
+int     is_paterne(char c)
+{
+    if (ft_isalnum(c) || c == ' ' || c == '\\' || c == '/' || c == '_' || c == '(' || c == ')' || c == '<' || c == '>')
+        return (0);
+    return (-1);
+}
+
 char	**parse_map(char *path_to_file)
 {
 	int		fd;
 	int		size_i;
 	int		size_j;
-	int		i;
+	int		i, j;
 	char	*buff;
 	char	**map;
     if ((fd = open_files(path_to_file)) == -1)
@@ -21,8 +28,15 @@ char	**parse_map(char *path_to_file)
     i = 0;
 	while (get_next_line(fd, &buff) == 1)
 	{
-        map[i] = ft_memalloc(sizeof(char ) * size_j + 1);;
-        ft_strcpy(map[i], buff);
+        map[i] = ft_memalloc(sizeof(char ) * size_j + 1);
+        j = 0;
+        while (is_paterne(buff[j]) == 0)
+        {
+            map[i][j] = buff[j];
+            j++;
+        }
+        map[i][j] = '\n';
+        printf("%s", map[i]);
         free(buff);
 		i++;
 	}
@@ -131,7 +145,6 @@ void affiche_map(char **map)
             else 
                 printf("%c", c);
 		}
-        ft_putchar('\n');
         i++;
 	}
 }

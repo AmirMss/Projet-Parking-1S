@@ -1,4 +1,4 @@
-NAME = test
+NAME = Parking
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
@@ -10,8 +10,7 @@ OBJ_DIR = ./obj
 SRC =  main.c	\
 	affiche_map.c	\
 	affiche_voiture.c	\
-	efface_voiture.c	\
-	open_files.c
+	util.c
 
 LIB_FT = ./libft
 FT_LNK = -L $(LIB_FT) -l ft

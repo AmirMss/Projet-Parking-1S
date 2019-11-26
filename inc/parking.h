@@ -19,14 +19,13 @@ typedef struct s_car
 char	**parse_map(char *path_to_file);
 void	affiche_map(char **map);
 /*
-**			affiche_map.c
+**			affiche_car.c
 */
 t_car **parse_car(char **path_to_files, int argc);
 void		affiche_voiture(t_car *car, int x, int y, int d);
 /*
 **			efface_map.c
 */
-void	efface_voiture(int x, int y);
-
 int     open_files(char *file);
+int     get_value(int fd);
 #endif

@@ -13,3 +13,14 @@ int     open_files(char *file)
         return (-1);
     return (fd);
 }
+
+int     get_value(int fd)
+{
+    char *buff;
+    int nb;
+
+    get_next_line(fd, &buff);
+    nb = ft_atoi(buff);
+    free(buff);
+    return (nb);
+}

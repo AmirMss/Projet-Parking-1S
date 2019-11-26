@@ -19,12 +19,9 @@ char	**parse_map(char *path_to_file)
 
     if ((fd = open_files(path_to_file)) == -1)
         return (NULL);
-    get_next_line(fd, &buff);       //  info size map;
-	size_i = ft_atoi(buff);         //  01.map :
-    free(buff);                     //  12
-    get_next_line(fd, &buff);       //  10
-	size_j = ft_atoi(buff);         //  *************
-    free(buff);                     //  ...
+   
+    size_i = get_value(fd);
+    size_j = get_value(fd);
     map = (char **)ft_memalloc(sizeof(char *) * size_i + 1);
     i = 0;
 	while (get_next_line(fd, &buff) == 1)

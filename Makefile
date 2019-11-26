@@ -1,15 +1,16 @@
 NAME = Parking
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = 
 
 SRC_DIR = ./src
 INC_DIR = ./inc
 OBJ_DIR = ./obj
 
-SRC =  main.c	\
-	affiche_map.c	\
+SRC =  main.c			\
+	affiche_map.c		\
 	affiche_voiture.c	\
+	player.c			\
 	util.c
 
 LIB_FT = ./libft

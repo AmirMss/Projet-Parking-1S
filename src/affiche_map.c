@@ -41,6 +41,28 @@ char	**parse_map(char *path_to_file)
     return (map);
 }
 
+int  find_start(char **map, int d)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (map[i] != NULL)
+    {
+        j = 0;
+        while (map[i][j] != '\0')
+        {
+            if (map[i][j] == '5' && d == 0)
+                return (i);
+            if (map[i][j] == '5' && d == 1)
+                return (j);
+            j++;
+        }
+        i++;
+    }
+    return (-1);
+}
+
 void affiche_map(char **map)
 {
     int i;

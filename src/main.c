@@ -10,8 +10,7 @@ int		main(int argc, char **argv)
 {
 	char	    	**map;
 	t_car           **all_car;
-    t_car           *car;
-//    t_lis_player    *player;
+    t_list_player    *player;
 
 	if (argc < 3)
 		return (usage(argv[0]));
@@ -21,7 +20,11 @@ int		main(int argc, char **argv)
 		return (usage(argv[0]));
     system("@cls||clear");
     affiche_map(map);
-    car = all_car[0];
-    affiche_voiture(car, 23, 20, 0);
+    player = NULL;
+    while (1)
+    {
+        player = voiture(player, map, all_car);
+        sleep(1);
+    }
 	return (0);
 }

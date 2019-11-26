@@ -19,6 +19,7 @@ int		main(int argc, char **argv)
 		return (usage(argv[0]));
 	if ((all_car = parse_car(argv, argc)) == NULL)
 		return (usage(argv[0]));
+    system("@cls||clear");
     affiche_map(map);
     car = all_car[0];
     affiche_voiture(car, 23, 20, 0);

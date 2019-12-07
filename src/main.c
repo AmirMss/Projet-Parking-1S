@@ -13,13 +13,13 @@ int         end(char *s)
     return (EXIT_FAILURE);
 }
 
-/*0x1F693*/
 int		main(int argc, char **argv)
 {
 	char	    	**map;
     t_list_player   *player;
 
-    setlocale(LC_ALL, "en_US.utf8"); /*Set local char*/ 
+    SET_UTF/*Set local char*/ 
+    
     system("@cls||clear");
 	if (argc != 2)
 		return (usage(argv[0]));

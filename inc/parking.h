@@ -1,6 +1,14 @@
 #ifndef PARKING_H
 # define PARKING_H
 
+#ifdef __APPLE__
+    #define SET_UTF setlocale (LC_ALL, "en_US.UTF-8");
+#elif __linux
+    #define SET_UTF setlocale(LC_ALL, "en_US.utf8");
+#else
+    #define SET_UTF setlocale(LC_ALL, "en_US.utf8");
+#endif
+
 
 # include "../libft/libft.h"
 # include <stdio.h>

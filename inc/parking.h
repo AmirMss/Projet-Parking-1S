@@ -6,15 +6,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-typedef struct      s_car
-{
-	char	    	**horizontal;
-	char	    	**vertical;
-}			    	t_car;
+# include <wchar.h>
+# include <locale.h>
 
 typedef struct             s_list_player
 {
+    char                   map;
+    int                    exit;
     int                    car;
     int                    pos_x;
     int                    pos_y;
@@ -26,21 +24,17 @@ typedef struct             s_list_player
 /*
 **			affiche_map.c
 */
-char	            **parse_map(char *path_to_file);
-void            	affiche_map(char **map);
-int                 find_start(char **map, int d);
-/*
-**			affiche_car.c
-*/
-t_car                **parse_car(char **path_to_files, int argc);
-void	             affiche_voiture(t_car *car, int x, int y, int d);
+char	        **parse_map(char *path_to_file);
+void            affiche_map(char **map);
+int             find_start(char **map, int d);
 /*
 **			util.c
 */
-int                 open_files(char *file);
-int                 get_value(int fd);
+int             open_files(char *file);
+int             get_value(int fd);
 /*
-**                  player.c              
+**              player.c              
 */
-t_list_player                 *voiture(t_list_player *player, char **map, t_car **car);
+t_list_player  *new_player(int x_start, int y_start, char **map);
+t_list_player           *move_all(t_list_player *player, char **map);
 #endif

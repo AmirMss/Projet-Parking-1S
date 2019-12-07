@@ -52,9 +52,9 @@ int  find_start(char **map, int d)
         j = 0;
         while (map[i][j] != '\0')
         {
-            if (map[i][j] == '5' && d == 0)
+            if (map[i][j] == 's' && d == 0)
                 return (i);
-            if (map[i][j] == '5' && d == 1)
+            if (map[i][j] == 's' && d == 1)
                 return (j);
             j++;
         }
@@ -119,7 +119,7 @@ void affiche_map(char **map)
                  printf("╝");
                  printf("\033[0m");
              }
-            else if (c == '1')
+            else if (c == '1' || c == 'd' || c == 'l' || c == 'h' || c == 'e' || c == '2')
              {
                  printf("\033[10;36;2m");
                  printf(" ");

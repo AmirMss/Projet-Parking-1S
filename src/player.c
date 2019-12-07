@@ -1,80 +1,152 @@
 #include "../inc/parking.h"
 #include <time.h>
 
-int     get_path(t_list_player *p, char **map)
-{
-    time_t t;
-    int    r;
+static void     print_car(t_list_player *player, int d)
+{   
+    wchar_t car; 
 
-    srand((unsigned)time(&t));
-    r = rand() % 100;
-    //printf("r = %d\n", r);
-    if (map[p->pos_x + 1][p->pos_y] == '1' && r <= 24 && p->dir_x != -1)
-        return (1);
-    else if (map[p->pos_x - 1][p->pos_y] == '1' && r <= 49 && p->dir_x != 1)
-        return (2);
-    else if (map[p->pos_x][p->pos_y + 1] == '1' && r <= 74 && p->dir_y != -1)
-        return (3);
-    else if (map[p->pos_x][p->pos_y - 1] == '1' && r <= 99 && p->dir_y != 1)
-        return (4);
-    return (0);
+    car = ' ';
+    if (d == 1)
+        car = ' ';
+    else if (player->car == 0)
+    {
+        if (player->dir_x != 0)
+            car = 0x1F694;
+        else
+            car = 0x1F693;
+    }
+    else if (player->car == 1)
+    {
+        if (player->dir_x != 0)
+            car = 0x1F696;
+        else
+            car = 0x1F695;
+    }
+    else if (player->car == 2)
+    {
+        if (player->dir_x != 0)
+            car = 0x1F68D;
+        else
+            car = 0x1F68C;
+    }
+    else if (player->car == 3)
+    {
+        if (player->dir_x != 0)
+            car = 0x1F694;
+        else
+            car = 0x1F693;
+    }
+    printf("\033[%d;%dH%lc\n",player->pos_x + 1, player->pos_y, car);
+    printf("\033[%d;%dH", 1000, 0);
+    fflush(stdout);
 }
 
-void    refresh_player(t_list_player *player, char **map, t_car **car)
+t_list_player   *new_player(int x_start, int y_start, char **map)
 {
-    int path;
+    time_t          t;
+    t_list_player *new;
 
-    path = get_path(player, map);
-    affiche_voiture(car[player->car], player->pos_x, player->pos_y, 1);
-    if (path == 1)
+    srand((unsigned)time(&t));
+    if (x_start == -1)
+        return (NULL);
+    if ((new = (t_list_player *)ft_memalloc(sizeof(t_list_player) *1)) == NULL)
+        return (NULL);
+    
+    new->pos_x = x_start;
+    new->pos_y = y_start;
+    new->dir_x = 0;
+    new->dir_y = 0;
+    new->car = rand() % 4;
+    new->next = NULL;
+    new->exit = 0;
+    new->map = map[new->pos_x][new->pos_y];
+    map[new->pos_x][new->pos_y] = 'v';
+    print_car(new, 0);
+    return (new);
+}
+
+int                next_dir(t_list_player *player, char **map)
+{
+    if (player->map == 's' || player->map == 'l') /*Start and down*/
     {
-        player->pos_x += 1;
         player->dir_x = 1;
         player->dir_y = 0;
     }
-    if (path == 2)
+    else if (player->map == 'd') /* left */
     {
-        player->pos_x -=1;
+        player->dir_x = 0;
+        player->dir_y = 1;
+    }
+    else if (player->map == 'h') /* Up */
+    {
         player->dir_x = -1;
         player->dir_y = 0;
     }
-    if (path == 3)
+    else if (player->map == ' ') /* */
     {
-        player->pos_y += 1;
-        player->dir_y = 1;
         player->dir_x = 0;
+        player->dir_y = 0;
     }
-    if (path == 4)
+    else if (player->map == 'e')
     {
-        player->pos_y -= 1;
-        player->dir_y = -1;
         player->dir_x = 0;
+        player->dir_y = 0;
+        return (EXIT_FAILURE);
     }
-    affiche_voiture(car[player->car], player->pos_x, player->pos_y, 0);
+    return (EXIT_SUCCESS);
+
+    /*else if (player->map == '2')
+    {
+        if (check_place(map, x, y, 'l') == 0 && player->exit == 0)
+        {
+
+        }
+        else 
+    }*/
 }
 
-t_list_player     *voiture(t_list_player *player, char **map, t_car **car)
+int               refresh_player(t_list_player *player, char **map)
 {
-    time_t t;
-    t_list_player *new;
+    if (next_dir(player, map) == EXIT_FAILURE)
+    {
+        map[player->pos_x][player->pos_y] = player->map;
+        return (EXIT_FAILURE);
+    }
+    if (map[player->pos_x + player->dir_x][player->pos_y + player->dir_y] != 'v')
+    {
+        map[player->pos_x][player->pos_y] = player->map;
+        player->pos_x += player->dir_x;
+        player->pos_y += player->dir_y;
+        player->map = map[player->pos_x][player->pos_y];
+        if (player->map == 'x')
+            map[player->pos_x][player->pos_y] = 'p';
+        else 
+            map[player->pos_x][player->pos_y] = 'v';
+    }
+    return (EXIT_SUCCESS);
+}
+
+t_list_player     *move_all(t_list_player *player, char **map)
+{
     t_list_player *tmp;
+    t_list_player *prev;
+    time_t          t;
+    int i; 
 
     srand((unsigned)time(&t));
-    if (player == NULL)
-    {
-        new = ft_memalloc(sizeof(t_list_player));
-        new->pos_x = find_start(map, 0);
-        new->pos_y = find_start(map, 1);
-        new->dir_x = 1;
-        new->dir_y = 0;
-        new->car = 0;
-        player = new;
-    }
+    prev = NULL;
     tmp = player;
     while (tmp != NULL)
     {
-        refresh_player(tmp, map, car);
+        print_car(tmp, 1);
+        i = refresh_player(tmp, map);
+        print_car(tmp, 0);
+
+        prev = tmp;
         tmp = tmp->next;
+
     }
+    if (prev != NULL && rand() % 3 == 0)
+        prev->next = new_player(find_start(map, 0), find_start(map, 1), map);
     return (player);
 }

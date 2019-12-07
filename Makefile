@@ -9,7 +9,6 @@ OBJ_DIR = ./obj
 
 SRC =  main.c			\
 	affiche_map.c		\
-	affiche_voiture.c	\
 	player.c			\
 	util.c
 
@@ -29,6 +28,7 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 
 $(NAME) : $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(FT_LNK)
+	@echo "\033[32mParking ready !!\033[0m"
 
 clean : 
 	@rm -Rf $(OBJ_DIR)

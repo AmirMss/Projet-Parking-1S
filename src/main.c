@@ -1,30 +1,39 @@
 #include "../inc/parking.h"
 
+
 static int	usage(char *name)
 {
-	printf("Usage : %s <map_file> <car_files ...>\nLes fichiers doivent etre valides !\n", name);
-	return (0);
+	printf("Usage : %s <map_file>\nLes fichiers doivent etre valides !\n", name);
+	return (EXIT_FAILURE);
 }
 
+int         end(char *s)
+{
+    printf("%s", s);
+    return (EXIT_FAILURE);
+}
+
+/*0x1F693*/
 int		main(int argc, char **argv)
 {
 	char	    	**map;
-	t_car           **all_car;
-    t_list_player    *player;
+    t_list_player   *player;
 
-	if (argc < 3)
+    setlocale(LC_ALL, "en_US.utf8"); /*Set local char*/ 
+    system("@cls||clear");
+	if (argc != 2)
 		return (usage(argv[0]));
 	if ((map = parse_map(argv[1])) == NULL)
 		return (usage(argv[0]));
-	if ((all_car = parse_car(argv, argc)) == NULL)
-		return (usage(argv[0]));
-    system("@cls||clear");
     affiche_map(map);
-    player = NULL;
+    if (NULL == (player = new_player(find_start(map, 0), find_start(map, 1), map)))
+        return (end("Error first player malloc\n"));
+
+
     while (1)
     {
-        player = voiture(player, map, all_car);
+        move_all(player, map);
         sleep(1);
     }
-	return (0);
+	return (EXIT_SUCCESS);
 }

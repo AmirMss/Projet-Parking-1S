@@ -9,7 +9,8 @@
     #define SET_UTF setlocale(LC_ALL, "en_US.utf8");
 #endif
 
-# include "../libft/libft.h"
+#define BUFF_SIZE 128
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -54,5 +55,23 @@ void                        print_car(t_list_player *player, int d);
 */
 int                         check_place(t_list_player *player, char **map, char ori);
 void                        wake_up(t_list_player *player, char **map);
-
+/*
+**                          my_lib.c
+*/
+int		                    ms_atoi(const char *str);
+int		                    ms_isdigit(int c);
+int	                    	ms_isalpha(int c);
+int	                    	ms_isalnum(int c);
+void                    	ms_bzero(void *s, size_t n);
+void                    	*ms_memalloc(size_t size);
+char                    	*ms_strjoin(char const *s1, char const *s2);
+char                    	*ms_strnew(size_t size);
+char                       	*ms_strdup(const char *s);
+void                    	ms_strdel(char **as);
+char                    	*ms_strchr(const char *s, int c);
+char	                    *ms_strcpy(char *dst, const char *src);
+size_t	                    ms_strlen(const char *str);
+char	                    *ms_strcat(char *dest, const char *src);
+char	                    *ms_strsub(char const *s, unsigned int start, size_t len);
+int		            		get_next_line(const int fd, char **line);
 #endif

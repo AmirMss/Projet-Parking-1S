@@ -3,7 +3,7 @@
 
 static int     is_paterne(char c)
 {
-    if (ft_isalnum(c) || c == ' ' || c == '\\' || c == '/' || c == '_' || c == '(' || c == ')' || c == '<' || c == '>')
+    if (ms_isalnum(c) || c == ' ' || c == '\\' || c == '/' || c == '_' || c == '(' || c == ')' || c == '<' || c == '>')
         return (0);
     return (-1);
 }
@@ -22,11 +22,11 @@ char	**parse_map(char *path_to_file)
    
     size_i = get_value(fd);
     size_j = get_value(fd);
-    map = (char **)ft_memalloc(sizeof(char *) * size_i + 1);
+    map = (char **)ms_memalloc(sizeof(char *) * size_i + 1);
     i = 0;
 	while (get_next_line(fd, &buff) == 1)
 	{
-        map[i] = ft_memalloc(sizeof(char ) * size_j + 1);
+        map[i] = ms_memalloc(sizeof(char ) * size_j + 1);
         j = 0;
         while (is_paterne(buff[j]) == 0)
         {

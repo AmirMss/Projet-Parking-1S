@@ -11,33 +11,31 @@ SRC =  main.c	\
 	map.c		\
 	player.c	\
 	util.c		\
-	place.c
+	place.c		\
+	my_lib.c
 
-LIB_FT = ./libft
-FT_LNK = -L $(LIB_FT) -l ft
 
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 all :
 	@mkdir -p $(OBJ_DIR)
-	@make -C $(LIB_FT)
 	@make $(NAME)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@$(CC) -c $(CFLAGS) -I $(INC_DIR) -I $(LIB_FT) $< -o $@
+	@$(CC) -c $(CFLAGS) -I $(INC_DIR) $< -o $@
 	@echo "\033[36m$(CC) $(CFLAGS) -c $< -o $@\033[0m"
 
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(FT_LNK)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "\033[32mParking ready !!\033[0m"
 
 clean : 
 	@rm -Rf $(OBJ_DIR)
-	@make clean -C $(LIB_FT)
+	@echo "\033[31mRemoved Obj\033[0m"
 
 fclean : clean
 	@rm -f $(NAME)
-	@make fclean -C $(LIB_FT)
+	@echo "\033[31mRemoved $(NAME)\033[0m"
 
 re : fclean 
 	@make all

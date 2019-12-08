@@ -20,7 +20,7 @@ int     get_value(int fd)
     int nb;
 
     get_next_line(fd, &buff);
-    nb = ft_atoi(buff);
+    nb = ms_atoi(buff);
     free(buff);
     return (nb);
 }
@@ -33,7 +33,7 @@ t_list_player   *new_player(int x_start, int y_start, char **map)
     srand((unsigned)time(&t));
     if (x_start == -1)
         return (NULL);
-    if ((new = (t_list_player *)ft_memalloc(sizeof(t_list_player) *1)) == NULL)
+    if ((new = (t_list_player *)ms_memalloc(sizeof(t_list_player) *1)) == NULL)
         return (NULL); 
     new->pos_x = x_start;
     new->pos_y = y_start;

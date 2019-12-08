@@ -18,7 +18,6 @@ int		main(int argc, char **argv)
 {
 	char	    	**map;
     t_list_player   *player;
-    t_list_player   *new;
     time_t          t;
     int             speed;
     char            c;

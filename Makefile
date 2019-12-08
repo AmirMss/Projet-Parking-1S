@@ -1,7 +1,7 @@
 NAME = Parking
 
 CC = gcc
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra
 
 SRC_DIR = ./src
 INC_DIR = ./inc

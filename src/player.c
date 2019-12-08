@@ -42,7 +42,6 @@ void     print_car(t_list_player *player, int d)
 
 int                next_dir(t_list_player *player, char **map)
 {
-    time_t  t;
     int     r;
     srand((unsigned)time(NULL));
     r = rand() % 6;
@@ -166,7 +165,6 @@ t_list_player     *move_all(t_list_player *player, char **map)
 {
     t_list_player *tmp;
     t_list_player *prev;
-    int i; 
 
     prev = NULL;
     tmp = player;

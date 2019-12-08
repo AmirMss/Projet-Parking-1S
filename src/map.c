@@ -65,9 +65,8 @@ int  find_start(char **map, int d)
 
 void affiche_map(char **map)
 {
-    int     i, j, r;
+    int     i, j;
     char    c;
-    wchar_t wc;
     int m;
 
     i = 0;

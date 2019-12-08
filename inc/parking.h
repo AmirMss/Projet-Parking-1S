@@ -9,7 +9,9 @@
     #define SET_UTF setlocale(LC_ALL, "en_US.utf8");
 #endif
 
-#define BUFF_SIZE 128
+#define BUFF_SIZE 128       //  Buff size for get_next_line;
+#define WAITING_MAX 100     //  Max park cycle wait;
+#define POPULATE 5          //  1 / N -> exemple 1/5 -> 1 of 5 cycle 1 more car;
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -17,7 +19,9 @@
 # include <wchar.h>
 # include <locale.h>
 # include <time.h>
-
+# include <signal.h>
+# include <fcntl.h>
+ 
 typedef struct             s_list_player
 {
     int                    car;     //  type wchar car; 
@@ -37,18 +41,19 @@ typedef struct             s_list_player
 */
 char	                    **parse_map(char *path_to_file);        //  Use for parse map files <Return : Malloc **char>;
 void                        affiche_map(char **map);                //  Take a Char **, convert to extended ASCII & print it in term;
-int                         find_start(char **map, int d);          //  Take a char ** and search 'a', <if d == 0 return x> <else return y>; 
+int                         find_char(char **map, int d, char c);   //  Take a char ** & char and search this char, <if d == 0 return x> <else return y>; 
 /*
 **  			            util.c
 */
 int                         open_files(char *file);                 //  Take a path file and return a file descriptor;
 int                         get_value(int fd);                      //  Take a File descriptor and return sizeof files; 
 t_list_player               *new_player(int x_start, int y_start, char **map);  //  Take x_start as in & y_start as int & map as char **, <Return : Malloc *t_list_player>;
+int                         print_clock(int x, int y, int cycle);
 /*
 **                          player.c              
 */
 t_list_player               *move_all(t_list_player *player, char **map);
-t_list_player               *check_dead(t_list_player *player, char **map);
+t_list_player               *check_dead(t_list_player *player, char **map, int *nb);
 void                        print_car(t_list_player *player, int d);
 /*
 **                          place.c

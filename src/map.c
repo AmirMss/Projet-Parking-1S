@@ -1,5 +1,4 @@
 #include "../inc/parking.h"
-#include <fcntl.h>
 
 static int     is_paterne(char c)
 {
@@ -41,7 +40,7 @@ char	**parse_map(char *path_to_file)
     return (map);
 }
 
-int  find_start(char **map, int d)
+int  find_char(char **map, int d, char c)
 {
     int i;
     int j;
@@ -52,9 +51,9 @@ int  find_start(char **map, int d)
         j = 0;
         while (map[i][j] != '\0')
         {
-            if (map[i][j] == 'a' && d == 0)
+            if (map[i][j] == c && d == 0)
                 return (i);
-            if (map[i][j] == 'a' && d == 1)
+            if (map[i][j] == c && d == 1)
                 return (j);
             j++;
         }
@@ -70,6 +69,8 @@ void affiche_map(char **map)
     int m;
 
     i = 0;
+    printf("\033[%d;%dH", 0, 0);
+
     while (map[i] != NULL)
     {
         j = 0;
@@ -92,7 +93,10 @@ void affiche_map(char **map)
                 printf("╗");
             else if (c == 'L')
                 printf("╝");
-            else if (c == '1' || c == 'd' || c == 'l' || c == 'h' || c == 'e' || c == '2' || c == 'p' || c == 'b' || c == 'n' || c == 'k' || c == 'c')
+            else if (c == '1' || c == 'd' || c == 'l' || c == 'h' || c == 'e'\
+                            || c == '2' || c == 'p' || c == 'b' || c == 'n' ||\
+                            c == 'k' || c == 'c' || c == 'v' || c == 'a' || c == 'u' ||\
+                            c == 'Z')
                 printf(" ");
             else if (c == '6')
                 printf("╬");
@@ -108,6 +112,12 @@ void affiche_map(char **map)
                 printf("╣");
             else if (c == 'G')
                 printf("╠");
+            else if (c == 'f')
+                printf("%lc", 0x1F6A7);
+            else if (c == 'y')
+                printf("%lc", 0x1F6A6);
+            else if (c == 'z')
+                printf("\033[0m%lc", 0x1F3ED);
             else 
                 printf("%c", c);
             printf("\033[0m");
@@ -115,4 +125,5 @@ void affiche_map(char **map)
 		}
         i++;
 	}
+    fflush(stdout);
 }

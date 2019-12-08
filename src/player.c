@@ -2,11 +2,15 @@
 
 void     print_car(t_list_player *player, int d)
 {   
-    wchar_t car; 
+    wchar_t car;
 
     car = ' ';
     if (d == 1)
+    {
+        if (player->map == 'f')
+            printf("\033[%d;%dH%lc\n",player->pos_x + 1, player->pos_y + 2, 0x1F6A7);
         car = ' ';
+    }
     else if (player->car == 0)
     {
         if (player->dir_x != 0)
@@ -35,7 +39,7 @@ void     print_car(t_list_player *player, int d)
         else
             car = 0x1F693;
     }
-    printf("\033[%d;%dH%lc\n",player->pos_x + 1, player->pos_y, car);
+    printf("\033[%d;%dH%lc\n",player->pos_x + 1, player->pos_y + 1, car);
     printf("\033[%d;%dH", 1000, 0);
     fflush(stdout);
 }
@@ -104,7 +108,7 @@ int                next_dir(t_list_player *player, char **map)
         player->dir_x = 0;
         player->dir_y = 0;
         if (player->wait == -42)
-            player->wait = rand() % 20;
+            player->wait = rand() % WAITING_MAX;
         if (player->wait <= 0)
             wake_up(player, map); 
         player->wait = player->wait - 1;
@@ -175,12 +179,12 @@ t_list_player     *move_all(t_list_player *player, char **map)
         prev = tmp;
         tmp = tmp->next;
     }
-    if (prev != NULL && rand() % 3 == 0)
-        prev->next = new_player(find_start(map, 0), find_start(map, 1), map);
+    if (prev != NULL && rand() % POPULATE == 0)
+        prev->next = new_player(find_char(map, 0, 'a'), find_char(map, 1, 'a'), map);
     return (player);
 }
 
-t_list_player    *check_dead(t_list_player *player, char **map)
+t_list_player    *check_dead(t_list_player *player, char **map, int *nb)
 {
     t_list_player *tmp;
     t_list_player *prev;
@@ -190,6 +194,10 @@ t_list_player    *check_dead(t_list_player *player, char **map)
     prev = player;
     if (player->dead == 1)
     {
+        if (player->exit == 1 && *nb < 2147483646)
+            *nb = *nb + 1;
+        else if (*nb > -2147483646)
+            *nb = *nb - 1;
         player = prev->next;
         map[prev->pos_x][prev->pos_y] = prev->map;
         print_car(prev, 1);
@@ -201,6 +209,10 @@ t_list_player    *check_dead(t_list_player *player, char **map)
     {
         if (tmp->dead == 1)
         {
+            if (player->exit == 1 && *nb < 2147483646)
+                *nb = *nb + 1;
+            else if (*nb > -2147483646)
+                *nb = *nb - 1;
             prev->next = tmp->next;
             map[tmp->pos_x][tmp->pos_y] = tmp->map;
             print_car(tmp, 1);            

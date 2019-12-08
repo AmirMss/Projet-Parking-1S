@@ -64,22 +64,22 @@ int		main(int argc, char **argv)
             c = getchar();
             if (c == '1'|| c == '5')
             {
-                speed = 1000000;
+                speed = 300000;   // Speed of a cars
                 break ;
             }
             else if (c == '2')
             {
-                speed = 850000;
+                speed = 200000;    // Speed of a cars
                 break ;
             }
             else if (c == '3')
             {
-                speed = 500000;
+                speed = 100000;     // Speed of a cars
                 break ;
             }
             else if (c == '4')
             {
-                speed = 250000;
+                speed = 5000;      // Speed of a cars
                 break ;
             }
     }

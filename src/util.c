@@ -49,7 +49,7 @@ t_list_player   *new_player(int x_start, int y_start, char **map)   //  Init new
     return (new);
 }
 
-int            print_clock(int x, int y, int cycle)
+int            print_clock(int x, int y, int cycle)  // time for clock
 {
     wchar_t tab[] = {0x2601, 0x26C5, 0x26C8, 0x1F324, 0x1F325, 0x1F326, 0x1F327, 0x1F328, 0x1F329, 0x1F32A};
     time_t  t;

@@ -132,7 +132,7 @@ int                next_dir(t_list_player *player, char **map)
     {
         if (map[player->pos_x + 1][player->pos_y - 2] == 'v' \
             || map[player->pos_x + 2][player->pos_y - 2] == 'v' \
-            || map[player->pos_x][player->pos_y - 2] == 'v')    //  Chcek if the road is free; 
+            || map[player->pos_x][player->pos_y - 2] == 'v')    //  Check if the road is free; 
         {
             player->dir_x = 0;
             player->dir_y = 0;

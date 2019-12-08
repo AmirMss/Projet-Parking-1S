@@ -66,7 +66,6 @@ void affiche_map(char **map)
 {
     int     i, j;
     char    c;
-    int m;
 
     i = 0;
     printf("\033[%d;%dH", 0, 0);
@@ -121,7 +120,6 @@ void affiche_map(char **map)
             else 
                 printf("%c", c);
             printf("\033[0m");
-            m++;
 		}
         i++;
 	}

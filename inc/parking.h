@@ -12,6 +12,7 @@
 #define BUFF_SIZE 128       //  Buff size for get_next_line;
 #define WAITING_MAX 100     //  Max park cycle wait;
 #define POPULATE 5          //  1 / N -> exemple 1/5 -> 1 of 5 cycle 1 more car;
+#define SPACE "                       "
 
 # include <stdio.h>
 # include <stdlib.h>

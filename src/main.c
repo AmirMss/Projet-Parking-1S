@@ -75,6 +75,7 @@ int		main(int argc, char **argv)
             {
                 speed = 200000;    // Speed of a cars
                 system("screen -d -m pkill play");
+                sleep(1);
                 system("screen -d -m play files/vive_le_vent.wav speed 1.25 repeat 999");
                 break ;
             }
@@ -82,6 +83,7 @@ int		main(int argc, char **argv)
             {
                 speed = 100000;     // Speed of a cars
                 system("screen -d -m pkill play");
+                sleep(1);
                 system("screen -d -m play files/vive_le_vent.wav speed 1.5 repeat 999");
                 break ;
             }
@@ -89,6 +91,7 @@ int		main(int argc, char **argv)
             {
                 speed = 5000;      // Speed of a cars
                 system("screen -d -m pkill play");
+                sleep(1);
                 system("screen -d -m play files/vive_le_vent.wav speed 2 repeat 999");
                 break ;
             }

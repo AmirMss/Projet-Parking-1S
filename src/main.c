@@ -28,7 +28,7 @@ static void     handel_exit(int sig)        //  Handel CTRL + C;
     if (c == 'y' || c == 'Y')
     {
         CLEAR   //  Clear windows;
-        printf("A+ %lc\n", 0x1F37B);
+        printf("%lc Joyeux Noel , à bientôt. %lc\n", 0x1F332 , 0x1F332);
         running = EXIT_FAILURE;
         exit (0);
     }
@@ -59,12 +59,12 @@ int		main(int argc, char **argv)
     while (running == EXIT_SUCCESS)     // While menu, wait select value;
     {
         CLEAR   //  Clear windows;
-        printf("%sBienvenue dans le projet parking de Moussous Amir\n\
-%sPour le premier mode appuyer sur 1,\n\
-%sPour le deuxieme mode appuyer sur 2\n\
-%sPour le mode ULTRA RAPIDE FIRE appuyer sur 3\n\
-%sPour le mode SUPER RAPIDE DE LA MORT QUI TUE ++ appuyer sur 4\n\
-%sPour le mode Acceleration progressive appuyer sur 5\n\n%s", SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE);
+        printf("%s%lc Bienvenue dans le projet parking de Moussous Amir et Abkari Mehdi %lc \n\
+%s%lc Pour le premier mode appuyer sur 1\n\
+%s%lc Pour le deuxieme mode appuyer sur 2\n\
+%s%lc Pour le mode ULTRA RAPIDE FIRE appuyer sur 3\n\
+%s%lc Pour le mode SUPER RAPIDE DE LA MORT QUI TUE ++ appuyer sur 4\n\
+%s%lc Pour le mode Acceleration progressive appuyer sur 5\n\n%s", SPACE,0x2744, 0x1F385, SPACE, 0x2744, SPACE, 0x2744, SPACE, 0x2744, SPACE , 0x2744, SPACE, 0x2744,SPACE);
         c = getchar();
         if (c == '1'|| c == '5')
         {

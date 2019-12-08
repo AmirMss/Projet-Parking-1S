@@ -93,7 +93,7 @@ void affiche_map(char **map)
                 printf("╗");
             else if (c == 'L')
                 printf("╝");
-            else if (c == '1' || c == 'd' || c == 'l' || c == 'h' || c == 'e' || c == '2' || c == 'p' || c == 'b' || c == 'n')
+            else if (c == '1' || c == 'd' || c == 'l' || c == 'h' || c == 'e' || c == '2' || c == 'p' || c == 'b' || c == 'n' || c == 'k' || c == 'c')
                 printf(" ");
             else if (c == '6')
                 printf("╬");

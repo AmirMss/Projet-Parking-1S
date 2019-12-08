@@ -52,7 +52,7 @@ void                        print_car(t_list_player *player, int d);
 /*
 **                          place.c
 */
-
-
+int                         check_place(t_list_player *player, char **map, char ori);
+void                        wake_up(t_list_player *player, char **map);
 
 #endif

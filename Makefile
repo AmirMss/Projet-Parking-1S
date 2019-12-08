@@ -10,7 +10,8 @@ OBJ_DIR = ./obj
 SRC =  main.c	\
 	map.c		\
 	player.c	\
-	util.c
+	util.c		\
+	place.c
 
 LIB_FT = ./libft
 FT_LNK = -L $(LIB_FT) -l ft

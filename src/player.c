@@ -40,31 +40,11 @@ void     print_car(t_list_player *player, int d)
     fflush(stdout);
 }
 
-int                 check_place(t_list_player *player, char **map, char ori)
-{
-    int i_incr;
-    int i;
-
-    i = 0; 
-    if (ori == 'l')
-        i_incr = -1;
-    else
-        i_incr = 1;
-    i += i_incr;
-    while (map[player->pos_x][player->pos_y + i] != ' ')
-    {
-        if (map[player->pos_x][player->pos_y + i] == 'v')
-            return (EXIT_FAILURE);
-        i += i_incr;
-    }
-    return (EXIT_SUCCESS);
-}
-
 int                next_dir(t_list_player *player, char **map)
 {
     time_t  t;
     int     r;
-    srand((unsigned)time(&t));
+    srand((unsigned)time(NULL));
     r = rand() % 6;
 
     if (player->map == 'a' || player->map == 'l') /*Start and down*/
@@ -94,17 +74,27 @@ int                next_dir(t_list_player *player, char **map)
         player->dead = 1;
         return (EXIT_FAILURE);
     }
-    else if (player->map == '2' && player->exit == 0 && r == 0)
+    else if (player->map == '2')
     {
-        if (check_place(player, map, 'l') == EXIT_SUCCESS)
+        if (player->exit == 1)
+        {
+            player->dir_x = 1;
+            player->dir_y = 0;
+        }
+        else if (check_place(player, map, 'l') == EXIT_SUCCESS && r == 0)
         {
             player->dir_x = 0;
             player->dir_y = -1;
         }
     }
-    else if (player->map == 'p' && player->exit == 0 && r == 0)
+    else if (player->map == 'p')
     {
-        if (check_place(player, map, 'r') == EXIT_SUCCESS)
+        if (player->exit == 1)
+        {
+            player->dir_x = -1;
+            player->dir_y = 0;
+        }
+        else if (check_place(player, map, 'r') == EXIT_SUCCESS && r == 1)
         {
             player->dir_x = 0;
             player->dir_y = 1;
@@ -112,11 +102,43 @@ int                next_dir(t_list_player *player, char **map)
     }
     else if (player->map == 'n')
     {
+        player->dir_x = 0;
+        player->dir_y = 0;
         if (player->wait == -42)
             player->wait = rand() % 20;
-        if (player->wait == 0)
-            //wake_up(player, map); 
-        player->wait--;
+        if (player->wait <= 0)
+            wake_up(player, map); 
+        player->wait = player->wait - 1;
+    }
+    if (player->map == 'k' && player->exit == 1)
+    {
+        if (map[player->pos_x][player->pos_y + 2] == 'v' \
+            || map[player->pos_x - 1][player->pos_y + 2] == 'v' \
+            || map[player->pos_x - 2][player->pos_y + 2] == 'v')
+        {
+            player->dir_x = 0;
+            player->dir_y = 0;
+        }
+        else
+        {
+            player->dir_x = 0;
+            player->dir_y = 1;
+        }
+    }
+    else if (player->map == 'c' && player->exit == 1)
+    {
+        if (map[player->pos_x + 1][player->pos_y - 2] == 'v' \
+            || map[player->pos_x + 2][player->pos_y - 2] == 'v' \
+            || map[player->pos_x][player->pos_y - 2] == 'v')
+        {
+            player->dir_x = 0;
+            player->dir_y = 0;
+        }
+        else
+        {
+            player->dir_x = 0;
+            player->dir_y = -1;
+        }
     }
     return (EXIT_SUCCESS);
 }

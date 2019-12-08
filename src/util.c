@@ -24,3 +24,28 @@ int     get_value(int fd)
     free(buff);
     return (nb);
 }
+
+t_list_player   *new_player(int x_start, int y_start, char **map)
+{
+    time_t          t;
+    t_list_player *new;
+
+    srand((unsigned)time(&t));
+    if (x_start == -1)
+        return (NULL);
+    if ((new = (t_list_player *)ft_memalloc(sizeof(t_list_player) *1)) == NULL)
+        return (NULL); 
+    new->pos_x = x_start;
+    new->pos_y = y_start;
+    new->dir_x = 1;
+    new->dir_y = 0;
+    new->car = rand() % 4;
+    new->exit = 0;
+    new->wait = -42;
+    new->dead = 0;
+    new->next = NULL;
+    new->map = map[new->pos_x][new->pos_y];
+    map[new->pos_x][new->pos_y] = 'v';
+    print_car(new, 0);
+    return (new);
+}

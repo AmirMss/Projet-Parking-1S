@@ -29,20 +29,15 @@ int		main(int argc, char **argv)
 		return (usage(argv[0]));
     affiche_map(map);
     srand((unsigned)time(&t));
-    if (NULL == (player = new_player(find_start(map, 0), find_start(map, 1), map)))
-        return (end("Error first player malloc\n"));
     while (1)
     {
+        if (player == NULL)
+        {
+            if (NULL == (player = new_player(find_start(map, 0), find_start(map, 1), map)))
+                return (end("Error first player malloc\n"));
+        }
         move_all(player, map);
         player = check_dead(player, map);
-        if (find_start(map, 0) != -1)
-        {
-            if (NULL == (new = new_player(find_start(map, 0), find_start(map, 1), map)))
-                return (end("Error first player malloc\n"));
-            new->next = player;
-            player = new;
-
-        }
         sleep(1);
     }
 	return (EXIT_SUCCESS);

@@ -7,9 +7,9 @@ SRC_DIR = ./src
 INC_DIR = ./inc
 OBJ_DIR = ./obj
 
-SRC =  main.c			\
-	affiche_map.c		\
-	player.c			\
+SRC =  main.c	\
+	map.c		\
+	player.c	\
 	util.c
 
 LIB_FT = ./libft

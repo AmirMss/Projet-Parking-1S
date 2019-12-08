@@ -1,6 +1,6 @@
 #include "../inc/parking.h"
 
-static void     print_car(t_list_player *player, int d)
+void     print_car(t_list_player *player, int d)
 {   
     wchar_t car; 
 
@@ -40,33 +40,33 @@ static void     print_car(t_list_player *player, int d)
     fflush(stdout);
 }
 
-t_list_player   *new_player(int x_start, int y_start, char **map)
+int                 check_place(t_list_player *player, char **map, char ori)
 {
-    time_t          t;
-    t_list_player *new;
+    int i_incr;
+    int i;
 
-    srand((unsigned)time(&t));
-    if (x_start == -1)
-        return (NULL);
-    if ((new = (t_list_player *)ft_memalloc(sizeof(t_list_player) *1)) == NULL)
-        return (NULL);
-    
-    new->pos_x = x_start;
-    new->pos_y = y_start;
-    new->dir_x = 0;
-    new->dir_y = 0;
-    new->car = rand() % 4;
-    new->next = NULL;
-    new->exit = 0;
-    new->map = map[new->pos_x][new->pos_y];
-    map[new->pos_x][new->pos_y] = 'v';
-    new->dead = 0;
-    print_car(new, 0);
-    return (new);
+    i = 0; 
+    if (ori == 'l')
+        i_incr = -1;
+    else
+        i_incr = 1;
+    i += i_incr;
+    while (map[player->pos_x][player->pos_y + i] != ' ')
+    {
+        if (map[player->pos_x][player->pos_y + i] == 'v')
+            return (EXIT_FAILURE);
+        i += i_incr;
+    }
+    return (EXIT_SUCCESS);
 }
 
 int                next_dir(t_list_player *player, char **map)
 {
+    time_t  t;
+    int     r;
+    srand((unsigned)time(&t));
+    r = rand() % 6;
+
     if (player->map == 'a' || player->map == 'l') /*Start and down*/
     {
         player->dir_x = 1;
@@ -94,27 +94,38 @@ int                next_dir(t_list_player *player, char **map)
         player->dead = 1;
         return (EXIT_FAILURE);
     }
-    return (EXIT_SUCCESS);
-
-    /*else if (player->map == '2')
+    else if (player->map == '2' && player->exit == 0 && r == 0)
     {
-        if (check_place(map, x, y, 'l') == 0 && player->exit == 0)
+        if (check_place(player, map, 'l') == EXIT_SUCCESS)
         {
-
+            player->dir_x = 0;
+            player->dir_y = -1;
         }
-        else 
-    }*/
+    }
+    else if (player->map == 'p' && player->exit == 0 && r == 0)
+    {
+        if (check_place(player, map, 'r') == EXIT_SUCCESS)
+        {
+            player->dir_x = 0;
+            player->dir_y = 1;
+        }
+    }
+    else if (player->map == 'n')
+    {
+        if (player->wait == -42)
+            player->wait = rand() % 20;
+        if (player->wait == 0)
+            //wake_up(player, map); 
+        player->wait--;
+    }
+    return (EXIT_SUCCESS);
 }
 
 int               refresh_player(t_list_player *player, char **map)
 {
-    next_dir(player, map);/* == EXIT_FAILURE)*/
-    /*{
-        map[player->pos_x][player->pos_y] = player->map;
-        player->dead = 1;
-        return (EXIT_FAILURE);
-    }*/
-    /*else*/ if (map[player->pos_x + player->dir_x][player->pos_y + player->dir_y] != 'v')
+    next_dir(player, map);
+    if (map[player->pos_x + player->dir_x][player->pos_y + player->dir_y] != 'v' \
+        && map[player->pos_x + player->dir_x * 2][player->pos_y + player->dir_y * 2] != 'v')
     {
         map[player->pos_x][player->pos_y] = player->map;
         player->pos_x += player->dir_x;
@@ -135,7 +146,6 @@ t_list_player     *move_all(t_list_player *player, char **map)
     t_list_player *prev;
     int i; 
 
-
     prev = NULL;
     tmp = player;
     while (tmp != NULL)
@@ -145,8 +155,8 @@ t_list_player     *move_all(t_list_player *player, char **map)
         prev = tmp;
         tmp = tmp->next;
     }
-   /* if (prev != NULL && rand() % 3 == 0)
-        prev->next = new_player(find_start(map, 0), find_start(map, 1), map);*/
+    if (prev != NULL && rand() % 3 == 0)
+        prev->next = new_player(find_start(map, 0), find_start(map, 1), map);
     return (player);
 }
 

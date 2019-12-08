@@ -65,38 +65,37 @@ int		main(int argc, char **argv)
 %sPour le mode ULTRA RAPIDE FIRE appuyer sur 3\n\
 %sPour le mode SUPER RAPIDE DE LA MORT QUI TUE ++ appuyer sur 4\n\
 %sPour le mode Acceleration progressive appuyer sur 5\n\n%s", SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE);
-            c = getchar();
-            if (c == '1'|| c == '5')
-            {
-                speed = 300000;   // Speed of a cars
-                break ;
-            }
-            else if (c == '2')
-            {
-                speed = 200000;    // Speed of a cars
-                system("screen -d -m pkill play");
-                sleep(1);
-                system("screen -d -m play files/vive_le_vent.wav speed 1.25 repeat 999");
-                break ;
-            }
-            else if (c == '3')
-            {
-                speed = 100000;     // Speed of a cars
-                system("screen -d -m pkill play");
-                sleep(1);
-                system("screen -d -m play files/vive_le_vent.wav speed 1.5 repeat 999");
-                break ;
-            }
-            else if (c == '4')
-            {
-                speed = 5000;      // Speed of a cars
-                system("screen -d -m pkill play");
-                sleep(1);
-                system("screen -d -m play files/vive_le_vent.wav speed 2 repeat 999");
-                break ;
-            }
+        c = getchar();
+        if (c == '1'|| c == '5')
+        {
+            speed = 300000;   // Speed of a cars
+            break ;
+        }
+        else if (c == '2')
+        {
+            speed = 200000;    // Speed of a cars
+            system("screen -d -m pkill play");
+            sleep(1);
+            system("screen -d -m play files/vive_le_vent.wav speed 1.25 repeat 999");
+            break ;
+        }
+        else if (c == '3')
+        {
+            speed = 100000;     // Speed of a cars
+            system("screen -d -m pkill play");
+            sleep(1);
+            system("screen -d -m play files/vive_le_vent.wav speed 1.5 repeat 999");
+            break ;
+        }
+        else if (c == '4')
+        {
+            speed = 5000;      // Speed of a cars
+            system("screen -d -m pkill play");
+            sleep(1);
+            system("screen -d -m play files/vive_le_vent.wav speed 2 repeat 999");
+            break ;
+        }
     }
-
 
     srand((unsigned)time(&t));
     CLEAR   //  Clear windows;

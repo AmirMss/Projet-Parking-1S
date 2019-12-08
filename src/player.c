@@ -1,5 +1,4 @@
 #include "../inc/parking.h"
-#include <time.h>
 
 static void     print_car(t_list_player *player, int d)
 {   
@@ -61,13 +60,14 @@ t_list_player   *new_player(int x_start, int y_start, char **map)
     new->exit = 0;
     new->map = map[new->pos_x][new->pos_y];
     map[new->pos_x][new->pos_y] = 'v';
+    new->dead = 0;
     print_car(new, 0);
     return (new);
 }
 
 int                next_dir(t_list_player *player, char **map)
 {
-    if (player->map == 's' || player->map == 'l') /*Start and down*/
+    if (player->map == 'a' || player->map == 'l') /*Start and down*/
     {
         player->dir_x = 1;
         player->dir_y = 0;
@@ -91,6 +91,7 @@ int                next_dir(t_list_player *player, char **map)
     {
         player->dir_x = 0;
         player->dir_y = 0;
+        player->dead = 1;
         return (EXIT_FAILURE);
     }
     return (EXIT_SUCCESS);
@@ -107,12 +108,13 @@ int                next_dir(t_list_player *player, char **map)
 
 int               refresh_player(t_list_player *player, char **map)
 {
-    if (next_dir(player, map) == EXIT_FAILURE)
-    {
+    next_dir(player, map);/* == EXIT_FAILURE)*/
+    /*{
         map[player->pos_x][player->pos_y] = player->map;
+        player->dead = 1;
         return (EXIT_FAILURE);
-    }
-    if (map[player->pos_x + player->dir_x][player->pos_y + player->dir_y] != 'v')
+    }*/
+    /*else*/ if (map[player->pos_x + player->dir_x][player->pos_y + player->dir_y] != 'v')
     {
         map[player->pos_x][player->pos_y] = player->map;
         player->pos_x += player->dir_x;
@@ -123,6 +125,7 @@ int               refresh_player(t_list_player *player, char **map)
         else 
             map[player->pos_x][player->pos_y] = 'v';
     }
+    print_car(player, 0);
     return (EXIT_SUCCESS);
 }
 
@@ -130,23 +133,52 @@ t_list_player     *move_all(t_list_player *player, char **map)
 {
     t_list_player *tmp;
     t_list_player *prev;
-    time_t          t;
     int i; 
 
-    srand((unsigned)time(&t));
+
     prev = NULL;
     tmp = player;
     while (tmp != NULL)
     {
         print_car(tmp, 1);
-        i = refresh_player(tmp, map);
-        print_car(tmp, 0);
-
+        refresh_player(tmp, map);
         prev = tmp;
         tmp = tmp->next;
-
     }
-    if (prev != NULL && rand() % 3 == 0)
-        prev->next = new_player(find_start(map, 0), find_start(map, 1), map);
+   /* if (prev != NULL && rand() % 3 == 0)
+        prev->next = new_player(find_start(map, 0), find_start(map, 1), map);*/
+    return (player);
+}
+
+t_list_player    *check_dead(t_list_player *player, char **map)
+{
+    t_list_player *tmp;
+    t_list_player *prev;
+
+    if (player == NULL)
+        return (player);
+    prev = player;
+    if (player->dead == 1)
+    {
+        player = prev->next;
+        map[prev->pos_x][prev->pos_y] = prev->map;
+        print_car(prev, 1);
+        free(prev);
+        return(player);
+    }
+    tmp = prev->next;
+    while (tmp != NULL)
+    {
+        if (tmp->dead == 1)
+        {
+            prev->next = tmp->next;
+            map[tmp->pos_x][tmp->pos_y] = tmp->map;
+            print_car(tmp, 1);            
+            free(tmp);
+            return(player);
+        }
+        prev = tmp;
+        tmp = tmp->next;
+    }
     return (player);
 }

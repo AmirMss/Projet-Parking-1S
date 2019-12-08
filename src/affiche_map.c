@@ -52,9 +52,9 @@ int  find_start(char **map, int d)
         j = 0;
         while (map[i][j] != '\0')
         {
-            if (map[i][j] == 's' && d == 0)
+            if (map[i][j] == 'a' && d == 0)
                 return (i);
-            if (map[i][j] == 's' && d == 1)
+            if (map[i][j] == 'a' && d == 1)
                 return (j);
             j++;
         }

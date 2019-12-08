@@ -1,14 +1,13 @@
 #ifndef PARKING_H
 # define PARKING_H
 
-#ifdef __APPLE__
+#ifdef __APPLE__    // Pour Apple
     #define SET_UTF setlocale (LC_ALL, "en_US.UTF-8");
-#elif __linux
+#elif __linux       // Pour Linux
     #define SET_UTF setlocale(LC_ALL, "en_US.utf8");
-#else
+#else               // else 
     #define SET_UTF setlocale(LC_ALL, "en_US.utf8");
 #endif
-
 
 # include "../libft/libft.h"
 # include <stdio.h>
@@ -16,11 +15,13 @@
 # include <unistd.h>
 # include <wchar.h>
 # include <locale.h>
+#include <time.h>
 
 typedef struct             s_list_player
 {
     char                   map;
     int                    exit;
+    int                    dead;
     int                    car;
     int                    pos_x;
     int                    pos_y;
@@ -45,4 +46,5 @@ int             get_value(int fd);
 */
 t_list_player  *new_player(int x_start, int y_start, char **map);
 t_list_player           *move_all(t_list_player *player, char **map);
+t_list_player    *check_dead(t_list_player *player, char **map);
 #endif

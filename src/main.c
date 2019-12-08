@@ -55,7 +55,7 @@ int		main(int argc, char **argv)
 		return (usage(argv[0]));
 	if ((map = parse_map(argv[1])) == NULL)
 		return (usage(argv[0]));
-    system("screen -d -m play files/vive_le_vent.wav");
+    system("screen -d -m play files/vive_le_vent.wav repeat 999");
     while (running == EXIT_SUCCESS)     // While menu, wait select value;
     {
         CLEAR   //  Clear windows;
@@ -74,16 +74,22 @@ int		main(int argc, char **argv)
             else if (c == '2')
             {
                 speed = 200000;    // Speed of a cars
+                system("screen -d -m pkill play");
+                system("screen -d -m play files/vive_le_vent.wav speed 1.25 repeat 999");
                 break ;
             }
             else if (c == '3')
             {
                 speed = 100000;     // Speed of a cars
+                system("screen -d -m pkill play");
+                system("screen -d -m play files/vive_le_vent.wav speed 1.5 repeat 999");
                 break ;
             }
             else if (c == '4')
             {
                 speed = 5000;      // Speed of a cars
+                system("screen -d -m pkill play");
+                system("screen -d -m play files/vive_le_vent.wav speed 2 repeat 999");
                 break ;
             }
     }

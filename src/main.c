@@ -19,7 +19,7 @@ static int         end(char *s)
 
 static void     handel_exit(int sig)        //  Handel CTRL + C;
 {
-    char c;
+    char    c;
 
     CLEAR
     signal(sig, handel_exit);
@@ -126,5 +126,5 @@ int		main(int argc, char **argv)
 
 void        finish()
 {
-    system("pkill play");
+    system("screen -d -m pkill play");
 }

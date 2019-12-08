@@ -60,7 +60,7 @@ int		main(int argc, char **argv)
 %sPour le deuxieme mode appuyer sur 2\n\
 %sPour le mode ULTRA RAPIDE FIRE appuyer sur 3\n\
 %sPour le mode SUPER RAPIDE DE LA MORT QUI TUE ++ appuyer sur 4\n\
-%sPour le mode Acceleration progressive appuyer sur 5\n", SPACE, SPACE, SPACE, SPACE, SPACE, SPACE);
+%sPour le mode Acceleration progressive appuyer sur 5\n\n%s", SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE);
             c = getchar();
             if (c == '1'|| c == '5')
             {

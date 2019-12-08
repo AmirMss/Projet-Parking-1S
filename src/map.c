@@ -1,13 +1,13 @@
 #include "../inc/parking.h"
 
-static int     is_paterne(char c)
+static int     is_paterne(char c)   //  Is paterne of the map;
 {
     if (ms_isalnum(c) || c == ' ' || c == '\\' || c == '/' || c == '_' || c == '(' || c == ')' || c == '<' || c == '>')
         return (0);
     return (-1);
 }
 
-char	**parse_map(char *path_to_file)
+char	**parse_map(char *path_to_file)  
 {
 	int		fd;
 	int		size_i;
@@ -40,27 +40,7 @@ char	**parse_map(char *path_to_file)
     return (map);
 }
 
-int  find_char(char **map, int d, char c)
-{
-    int i;
-    int j;
 
-    i = 0;
-    while (map[i] != NULL)
-    {
-        j = 0;
-        while (map[i][j] != '\0')
-        {
-            if (map[i][j] == c && d == 0)
-                return (i);
-            if (map[i][j] == c && d == 1)
-                return (j);
-            j++;
-        }
-        i++;
-    }
-    return (-1);
-}
 
 void affiche_map(char **map)
 {
@@ -79,7 +59,7 @@ void affiche_map(char **map)
             j++;
             printf("\033[10;36;2m");
             if (c == 'U')
-                printf("╔"); // On l'affiche
+                printf("╔");
             else if (c == 'B')
                 printf("═");
             else if (c == 'A')
@@ -112,11 +92,11 @@ void affiche_map(char **map)
             else if (c == 'G')
                 printf("╠");
             else if (c == 'f')
-                printf("%lc", 0x1F6A7);
+                printf("%lc", 0x1F6A7); //  print wchar;
             else if (c == 'y')
-                printf("%lc", 0x1F6A6);
+                printf("%lc", 0x1F6A6); //  print wchar;
             else if (c == 'z')
-                printf("\033[0m%lc", 0x1F3ED);
+                printf("\033[0m%lc", 0x1F3ED);  //  print wchar;
             else 
                 printf("%c", c);
             printf("\033[0m");

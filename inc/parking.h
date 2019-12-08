@@ -12,7 +12,8 @@
 #define BUFF_SIZE 128       //  Buff size for get_next_line;
 #define WAITING_MAX 100     //  Max park cycle wait;
 #define POPULATE 5          //  1 / N -> exemple 1/5 -> 1 of 5 cycle 1 more car;
-#define SPACE "                       "
+#define SPACE "                       " //  Space for the menu;
+#define CLEAR system("@cls||clear");
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -53,7 +54,7 @@ int                         print_clock(int x, int y, int cycle);   //  Take a c
 /*
 **                          player.c              
 */
-t_list_player               *move_all(t_list_player *player, char **map);   //  Take player list, and map.
+t_list_player               *move_all(t_list_player *player, char **map);   //  Take player list, and map;
 t_list_player               *check_dead(t_list_player *player, char **map, int *nb);    //  Take a player, map and &score, every free score is increment;
 void                        print_car(t_list_player *player, int d);    //  Take a player and print it if d == 0 print the car else print space;
 /*

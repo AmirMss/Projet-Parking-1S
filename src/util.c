@@ -113,3 +113,25 @@ int            print_clock(int x, int y, int cycle)
     fflush(stdout);
     return (cycle);
 }
+
+int  find_char(char **map, int d, char c)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (map[i] != NULL)
+    {
+        j = 0;
+        while (map[i][j] != '\0')
+        {
+            if (map[i][j] == c && d == 0)
+                return (i);
+            if (map[i][j] == c && d == 1)
+                return (j);
+            j++;
+        }
+        i++;
+    }
+    return (-1);
+}

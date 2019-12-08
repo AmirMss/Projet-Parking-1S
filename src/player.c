@@ -8,7 +8,7 @@ void     print_car(t_list_player *player, int d)
     if (d == 1)
     {
         if (player->map == 'f')
-            printf("\033[%d;%dH%lc\n",player->pos_x + 1, player->pos_y + 2, 0x1F6A7);
+            printf("\033[%d;%dH%lc\n",player->pos_x + 1, player->pos_y + 2, 0x1F6A7); // Print fence;
         car = ' ';
     }
     else if (player->car == 0)
@@ -50,74 +50,74 @@ int                next_dir(t_list_player *player, char **map)
     srand((unsigned)time(NULL));
     r = rand() % 6;
 
-    if (player->map == 'a' || player->map == 'l') /*Start and down*/
+    if (player->map == 'a' || player->map == 'l')   //  Start and down;
     {
         player->dir_x = 1;
         player->dir_y = 0;
     }
-    else if (player->map == 'd') /* left */
+    else if (player->map == 'd')    //  Right;
     {
         player->dir_x = 0;
         player->dir_y = 1;
     }
-    else if (player->map == 'h') /* Up */
+    else if (player->map == 'h')    //  Up;
     {
         player->dir_x = -1;
         player->dir_y = 0;
     }
-    else if (player->map == ' ') /* */
+    else if (player->map == ' ')    // Stop;
     {
         player->dir_x = 0;
         player->dir_y = 0;
     }
-    else if (player->map == 'e')
+    else if (player->map == 'e')    //  End of the road;
     {
         player->dir_x = 0;
         player->dir_y = 0;
         player->dead = 1;
         return (EXIT_FAILURE);
     }
-    else if (player->map == '2')
+    else if (player->map == '2')    //  Left to place;
     {
-        if (player->exit == 1)
+        if (player->exit == 1)  //  Return on the road
         {
             player->dir_x = 1;
             player->dir_y = 0;
         }
-        else if (check_place(player, map, 'l') == EXIT_SUCCESS && r == 0)
+        else if (check_place(player, map, 'l') == EXIT_SUCCESS && r == 0)   // Go to place;
         {
             player->dir_x = 0;
             player->dir_y = -1;
         }
     }
-    else if (player->map == 'p')
+    else if (player->map == 'p')    //  Right to place;
     {
-        if (player->exit == 1)
+        if (player->exit == 1)  //  Return on the road
         {
             player->dir_x = -1;
             player->dir_y = 0;
         }
-        else if (check_place(player, map, 'r') == EXIT_SUCCESS && r == 1)
+        else if (check_place(player, map, 'r') == EXIT_SUCCESS && r == 1)   //  Go to place
         {
             player->dir_x = 0;
             player->dir_y = 1;
         }
     }
-    else if (player->map == 'n')
+    else if (player->map == 'n')    //  End of the place;
     {
         player->dir_x = 0;
         player->dir_y = 0;
-        if (player->wait == -42)
-            player->wait = rand() % WAITING_MAX;
-        if (player->wait <= 0)
+        if (player->wait == -42)    //  wait unset;
+            player->wait = rand() % WAITING_MAX;    //  set wait;
+        if (player->wait <= 0)  //  Wake up;
             wake_up(player, map); 
-        player->wait = player->wait - 1;
+        player->wait = player->wait - 1; // Decrement wait;
     }
-    if (player->map == 'k' && player->exit == 1)
+    if (player->map == 'k' && player->exit == 1)    // Incoming on the road;
     {
         if (map[player->pos_x][player->pos_y + 2] == 'v' \
             || map[player->pos_x - 1][player->pos_y + 2] == 'v' \
-            || map[player->pos_x - 2][player->pos_y + 2] == 'v')
+            || map[player->pos_x - 2][player->pos_y + 2] == 'v')    //  Chcek if the road is free; 
         {
             player->dir_x = 0;
             player->dir_y = 0;
@@ -128,11 +128,11 @@ int                next_dir(t_list_player *player, char **map)
             player->dir_y = 1;
         }
     }
-    else if (player->map == 'c' && player->exit == 1)
+    else if (player->map == 'c' && player->exit == 1)   // Incoming on the road;
     {
         if (map[player->pos_x + 1][player->pos_y - 2] == 'v' \
             || map[player->pos_x + 2][player->pos_y - 2] == 'v' \
-            || map[player->pos_x][player->pos_y - 2] == 'v')
+            || map[player->pos_x][player->pos_y - 2] == 'v')    //  Chcek if the road is free; 
         {
             player->dir_x = 0;
             player->dir_y = 0;

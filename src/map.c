@@ -40,8 +40,6 @@ char	**parse_map(char *path_to_file)
     return (map);
 }
 
-
-
 void affiche_map(char **map)
 {
     int     i, j;

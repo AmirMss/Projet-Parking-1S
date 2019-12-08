@@ -3,6 +3,8 @@
 static int running = EXIT_SUCCESS;  //  While condition;
 static int lock = EXIT_SUCCESS;     //  Re-print the maps;
 
+__attribute__((destructor)) void finish(void);
+
 static int	usage(char *name)
 {
 	printf("Usage : %s <map_file>\nLes fichiers doivent etre valides !\n", name);
@@ -28,6 +30,7 @@ static void     handel_exit(int sig)        //  Handel CTRL + C;
         CLEAR   //  Clear windows;
         printf("A+ %lc\n", 0x1F37B);
         running = EXIT_FAILURE;
+        exit (0);
     }
     else 
     {
@@ -52,6 +55,7 @@ int		main(int argc, char **argv)
 		return (usage(argv[0]));
 	if ((map = parse_map(argv[1])) == NULL)
 		return (usage(argv[0]));
+    system("screen -d -m play files/vive_le_vent.wav");
     while (running == EXIT_SUCCESS)     // While menu, wait select value;
     {
         CLEAR   //  Clear windows;
@@ -118,4 +122,9 @@ int		main(int argc, char **argv)
     }
     exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
+}
+
+void        finish()
+{
+    system("pkill play");
 }

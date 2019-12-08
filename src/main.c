@@ -112,8 +112,8 @@ Pour le mode Acceleration progressive appuyer sur 5\n");
         }
         move_all(player, map);
         player = check_dead(player, map, &score);
-        if (c == '5'&& speed > 150000)
-            speed--;
+        if (c == '5'&& speed > 15000)
+            speed -= 1000;
         cycle++;
         usleep(speed);
     }

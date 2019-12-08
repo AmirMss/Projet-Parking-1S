@@ -48,35 +48,35 @@ int                         find_char(char **map, int d, char c);   //  Take a c
 int                         open_files(char *file);                 //  Take a path file and return a file descriptor;
 int                         get_value(int fd);                      //  Take a File descriptor and return sizeof files; 
 t_list_player               *new_player(int x_start, int y_start, char **map);  //  Take x_start as in & y_start as int & map as char **, <Return : Malloc *t_list_player>;
-int                         print_clock(int x, int y, int cycle);
+int                         print_clock(int x, int y, int cycle);   //  Take a clock pos, and cycle, print Day, Night, Clock, Weather;
 /*
 **                          player.c              
 */
-t_list_player               *move_all(t_list_player *player, char **map);
-t_list_player               *check_dead(t_list_player *player, char **map, int *nb);
-void                        print_car(t_list_player *player, int d);
+t_list_player               *move_all(t_list_player *player, char **map);   //  Take player list, and map.
+t_list_player               *check_dead(t_list_player *player, char **map, int *nb);    //  Take a player, map and &score, every free score is increment;
+void                        print_car(t_list_player *player, int d);    //  Take a player and print it if d == 0 print the car else print space;
 /*
 **                          place.c
 */
-int                         check_place(t_list_player *player, char **map, char ori);
-void                        wake_up(t_list_player *player, char **map);
+int                         check_place(t_list_player *player, char **map, char ori);   //  Take a player, map and orientation, check if the place is free <return : free = EXIT_SUCCES, not_free = EXIT_FAILURE>
+void                        wake_up(t_list_player *player, char **map); //  Take a player and map.  Get the new path;
 /*
 **                          my_lib.c
 */
-int		                    ms_atoi(const char *str);
-int		                    ms_isdigit(int c);
-int	                    	ms_isalpha(int c);
-int	                    	ms_isalnum(int c);
-void                    	ms_bzero(void *s, size_t n);
-void                    	*ms_memalloc(size_t size);
-char                    	*ms_strjoin(char const *s1, char const *s2);
-char                    	*ms_strnew(size_t size);
-char                       	*ms_strdup(const char *s);
-void                    	ms_strdel(char **as);
-char                    	*ms_strchr(const char *s, int c);
-char	                    *ms_strcpy(char *dst, const char *src);
-size_t	                    ms_strlen(const char *str);
-char	                    *ms_strcat(char *dest, const char *src);
-char	                    *ms_strsub(char const *s, unsigned int start, size_t len);
-int		            		get_next_line(const int fd, char **line);
+int		                    ms_atoi(const char *str);   //  man atoi;
+int		                    ms_isdigit(int c);  //  man isdigit;
+int	                    	ms_isalpha(int c);  //  man isalpha;
+int	                    	ms_isalnum(int c);  //  man isalnum;
+void                    	ms_bzero(void *s, size_t n);    //  man bzero;
+void                    	*ms_memalloc(size_t size);  //  Allocates and returns a “fresh” memory area;
+char                    	*ms_strjoin(char const *s1, char const *s2);    //  Allocates and returns a “fresh” string ending with ’\0’, result of the concatenation of s1 and s2;
+char                    	*ms_strnew(size_t size);    //  Allocates and returns a “fresh” string ending with ’\0’;
+char                       	*ms_strdup(const char *s);  //  man strdup;
+void                    	ms_strdel(char **as);   //  Takes as a parameter the address of a string and free it, then sets its pointer to NULL;
+char                    	*ms_strchr(const char *s, int c);   //  man strchr;
+char	                    *ms_strcpy(char *dst, const char *src); //  man strcpy;
+size_t	                    ms_strlen(const char *str); //  man strlen;
+char	                    *ms_strcat(char *dest, const char *src);    //  man strcat;
+char	                    *ms_strsub(char const *s, unsigned int start, size_t len);  //  Allocates  and returns a “fresh” substring from the string given as argument;
+int		            		get_next_line(const int fd, char **line);   //  Return the next line form the file descriptor; 
 #endif
